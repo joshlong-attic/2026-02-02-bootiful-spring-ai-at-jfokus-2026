@@ -13,7 +13,11 @@
  
  ## auth server
  * add `org.springaicommunity` :  `mcp-authorization-server` : `0.1.1`
- * add `http.with(mcpAuthorizationServer(), Customizer.withDefaults());` in an `auth-server`  Spring Security `HttpSecurity` customizer
+ * add in `auth-server` Spring Security `HttpSecurity` customizer
+ ```java 
+ http.with(mcpAuthorizationServer(), Customizer.withDefaults());
+ ``` 
+ 
 
  ## mcp client 
  
@@ -33,7 +37,6 @@
 add: 
 
 ```java
-
     @Bean  
     SecurityFilterChain securityFilterChain(HttpSecurity http)  {
         return http
@@ -43,18 +46,31 @@ add:
     }
 
     @Bean
-    McpSyncHttpClientRequestCustomizer mcpSyncHttpClientRequestCustomizer(OAuth2AuthorizedClientManager oAuth2AuthorizedClientManager) {
-        return new OAuth2AuthorizationCodeSyncHttpRequestCustomizer(oAuth2AuthorizedClientManager, "authserver");
+    McpSyncHttpClientRequestCustomizer mcpSyncHttpClientRequestCustomizer(
+          OAuth2AuthorizedClientManager oAuth2AuthorizedClientManager) {
+        return new OAuth2AuthorizationCodeSyncHttpRequestCustomizer(
+            oAuth2AuthorizedClientManager, "authserver");
     }
 
     @Bean
     McpSyncClientCustomizer mcpSyncClientCustomizer() {
         return (name, syncSpec) -> syncSpec
-                .transportContextProvider(new AuthenticationMcpTransportContextProvider());
+             .transportContextProvider(new AuthenticationMcpTransportContextProvider());
     }
 ```
 
-## mcp-service
+## scheduler 
 * add `spring-security-resource-server` starter
 * add `org.springaicommunity`: `mcp-server-security` : `0.1.1`
 * it's a resource service; add `spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:9000`
+* refactor the scheduler service to return a record with the currently authenticated user from `SecurityContextHolder`.
+* add: 
+```java
+
+    @Bean
+    Customizer<HttpSecurity> httpSecurityCustomizer(
+            @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}") String issuer) {
+        return http -> http.with(mcpServerOAuth2(),
+                auth -> auth.authorizationServer(issuer));
+    }
+```
