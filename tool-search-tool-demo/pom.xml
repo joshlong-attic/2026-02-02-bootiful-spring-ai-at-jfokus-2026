@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>4.0.0</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>org.springaicommunity</groupId>
+	<artifactId>tool-search-tool-demo</artifactId>
+	<version>2.0.1-SNAPSHOT</version>
+	<name>tool-search-tool-demo</name>
+	<description>Demo project for Spring Boot</description>
+
+	<url>https://github.com/tzolov/spring-ai-tool-search-tool</url>
+
+	<scm>
+		<url>https://github.com/tzolov/spring-ai-tool-search-tool</url>
+		<connection>git://github.com/tzolov/spring-ai-tool-search-tool.git</connection>
+		<developerConnection>git@github.com:tzolov/spring-ai-tool-search-tool.git</developerConnection>
+	</scm>
+
+	<organization>
+		<name>Logaritex</name>
+		<url>https://github.com/tzolov</url>
+	</organization>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Christian Tzolov</name>
+		</developer>
+	</developers>
+
+	<issueManagement>
+		<system>Github Issues</system>
+		<url>https://github.com/tzolov/spring-ai-tool-search-tool/issues</url>
+	</issueManagement>
+	<ciManagement>
+		<system>Github Actions</system>
+		<url>https://github.com/tzolov/spring-ai-tool-search-tool/actions</url>
+	</ciManagement>
+
+	<properties>
+		<java.version>17</java.version>
+		<maven.deploy.skip>true</maven.deploy.skip>
+		<spring-ai.version>2.0.0-M2</spring-ai.version>
+		<tool-search-tool.version>2.0.1</tool-search-tool.version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.springaicommunity</groupId>
+			<artifactId>tool-search-tool</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springaicommunity</groupId>
+			<artifactId>tool-searcher-vectorstore</artifactId>
+		</dependency>
+
+		<!--
+		<dependency>
+			<groupId>org.springaicommunity</groupId>
+			<artifactId>tool-searcher-lucene</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springaicommunity</groupId>
+			<artifactId>tool-searcher-regex</artifactId>
+		</dependency>
+		-->
+
+		<dependency>
+		    <groupId>org.springframework.ai</groupId>
+    		<artifactId>spring-ai-starter-model-openai-sdk</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-vector-store</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-starter-model-transformers</artifactId>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.ai</groupId>
+				<artifactId>spring-ai-bom</artifactId>
+				<version>${spring-ai.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springaicommunity</groupId>
+				<artifactId>tool-search-tool-bom</artifactId>
+				<version>${tool-search-tool.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
